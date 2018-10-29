@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  dbservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44327
+    ports:
+      - "50532:80"
+      - "44327:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - db
+    
+  db:
+    container_name: db
+    image: microsoft/mssql-server-linux
+    ports:
+      - "1433:1433"
+    environment:
+      MSSQL_SA_PASSWORD: "test_]7tLeW!'4K#2z3&!qhTzJaU8pX6wYv"
+      ACCEPT_EULA: Y
+      MSSQL_PID: Developer
