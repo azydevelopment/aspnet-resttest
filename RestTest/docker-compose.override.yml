@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  resttest.dbservice:
+  resttest:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -14,6 +14,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
     depends_on:
       - resttest.db
+      - resttest.storage
     
   resttest.db:
     container_name: resttest.db
@@ -24,3 +25,11 @@ services:
       MSSQL_SA_PASSWORD: "test_]7tLeW!'4K#2z3&!qhTzJaU8pX6wYv"
       ACCEPT_EULA: Y
       MSSQL_PID: Developer
+
+  resttest.storage:
+    container_name: resttest.storage
+    image: arafato/azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"

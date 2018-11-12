@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace RestTest.DbService.Models
+namespace RestTest.Db.Models
 {
-    public class DbContextDocuments : DbContext
+    public class DbContextDocuments
+        : DbContext
     {
         public DbSet<Document> mDocuments { get; set; }
 

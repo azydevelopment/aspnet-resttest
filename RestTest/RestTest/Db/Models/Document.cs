@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RestTest.DbService.Models
+namespace RestTest.Db.Models
 {
 	[Table("TableDocuments")]
 	public class Document
@@ -10,7 +10,7 @@ namespace RestTest.DbService.Models
 		[Column("Id")]
 		public long mId { get; set; }
 
-		[Column("Name", TypeName = "nvarchar(8000)")]
+		[Column("Name", TypeName = "nvarchar(4000)")]
 		[Required]
 		public string mName { get; set; }
 

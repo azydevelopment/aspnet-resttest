@@ -1,9 +1,9 @@
 version: '3.4'
 
 services:
-  resttest.dbservice:
-    container_name: resttest.dbservice
-    image: ${DOCKER_REGISTRY}resttest/dbservice
+  resttest:
+    container_name: resttest
+    image: ${DOCKER_REGISTRY}resttest
     build:
       context: .
-      dockerfile: DbService/Dockerfile
+      dockerfile: RestTest/Dockerfile

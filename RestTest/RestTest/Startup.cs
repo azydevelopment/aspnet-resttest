@@ -4,28 +4,56 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RestTest.DbService.Models;
+using RestTest.Db;
+using RestTest.Interfaces;
+using RestTest.Storage;
 
 namespace RestTest
 {
     public class Startup
     {
-        public IConfiguration mConfiguration { get; }
+        // PUBLIC
+
+        // types
+
+        public class CONFIG
+        {
+            public DbService.CONFIG DbService { get; set; }
+            public StorageService.CONFIG StorageService { get; set; }
+        }
+
+        // constructor
 
         public Startup(IConfiguration configuration)
         {
-            mConfiguration = configuration;
+            // populate application config
+            mConfig = configuration.Get<CONFIG>();
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // methods
+
         public void ConfigureServices(IServiceCollection services)
         {
+            // add MVC
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            string connection = mConfiguration.GetConnectionString("DbService");
-            services.AddDbContext<DbContextDocuments>(options => options.UseSqlServer(connection));
+            // add database service
+            services.AddTransient<IDbService, DbService>(
+                dbService =>
+                {
+                    return new DbService(mConfig.DbService);
+                }
+            );
+
+            // add storage service
+            services.AddTransient<IStorageService, StorageService>(
+                storageService =>
+                {
+                    return new StorageService(mConfig.StorageService);
+                }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,5 +71,11 @@ namespace RestTest
             app.UseHttpsRedirection();
             app.UseMvc();
         }
+
+        // PRIVATE
+
+        // members
+
+        private readonly CONFIG mConfig;
     }
 }
