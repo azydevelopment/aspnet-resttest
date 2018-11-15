@@ -15,7 +15,7 @@ namespace RestTest.WebApi.Controllers
 
         // constructor
 
-        public ControllerDocuments(IDbService dbService, IStorageService storageService)
+        public ControllerDocuments(DbContextDocuments dbService, IStorageService storageService)
         {
             mDbService = dbService;
             mStorageService = storageService;

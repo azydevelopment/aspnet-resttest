@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RestTest.Db;
+using RestTest.Db.Models;
 using RestTest.Interfaces;
 using RestTest.Storage;
 
@@ -18,7 +18,7 @@ namespace RestTest
 
         public class CONFIG
         {
-            public DbService.CONFIG DbService { get; set; }
+            public DbContextDocuments.CONFIG DbService { get; set; }
             public StorageService.CONFIG StorageService { get; set; }
         }
 
@@ -39,11 +39,11 @@ namespace RestTest
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // add database service
-            services.AddTransient<IDbService, DbService>(
-                dbService =>
+            // add db service
+            services.AddDbContext<DbContextDocuments>(
+                options =>
                 {
-                    return new DbService(mConfig.DbService);
+                    options.UseSqlServer(mConfig.DbService.ConnectionString);
                 }
             );
 

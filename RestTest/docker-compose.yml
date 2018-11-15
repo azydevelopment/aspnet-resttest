@@ -1,9 +1,9 @@
 version: '3.4'
 
 services:
-  resttest:
-    container_name: resttest
-    image: ${DOCKER_REGISTRY}resttest
+  resttest.webapi:
+    container_name: resttest.webapi
+    image: ${DOCKER_REGISTRY}resttest.webapi
     build:
       context: .
-      dockerfile: RestTest/Dockerfile
+      dockerfile: RestTestWebApi/Dockerfile
