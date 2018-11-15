@@ -6,6 +6,7 @@
     <UserSecretsId>f9145c23-afbd-4d2f-9bf3-0239514812d1</UserSecretsId>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <RootNamespace>RestTest</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

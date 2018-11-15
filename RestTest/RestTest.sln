@@ -3,9 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTestWebApi", "RestTestWebApi\RestTestWebApi.csproj", "{D46279D0-131D-40FD-AFB0-FDEBA1872C17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{D46279D0-131D-40FD-AFB0-FDEBA1872C17}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7A495BF0-9C4A-4E80-896F-61A024BCA9A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D46279D0-131D-40FD-AFB0-FDEBA1872C17} = {D46279D0-131D-40FD-AFB0-FDEBA1872C17}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
