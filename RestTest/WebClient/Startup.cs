@@ -1,18 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebClient.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace WebClient
@@ -37,7 +31,7 @@ namespace WebClient
             });
 
             services
-                .AddDbContext<ApplicationDbContext>(
+                .AddDbContext<IdentityDbContext>(
                     options =>
                     {
                         options.UseInMemoryDatabase(databaseName: "TEST_DB");
@@ -45,7 +39,7 @@ namespace WebClient
                 );
 
             services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             services
@@ -56,7 +50,7 @@ namespace WebClient
                     options.ClientId = Configuration["Authentication:OIDC:Google:ClientId"];
                     options.ClientSecret = Configuration["Authentication:OIDC:Google:ClientSecret"];
                     options.Authority = Configuration["Authentication:OIDC:Google:Authority"];
-                    options.ResponseType = OpenIdConnectResponseType.IdToken;
+                    options.ResponseType = OpenIdConnectResponseType.CodeIdTokenToken;
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
                 });
