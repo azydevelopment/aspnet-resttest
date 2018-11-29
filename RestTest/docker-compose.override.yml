@@ -15,6 +15,18 @@ services:
     depends_on:
       - resttest.db
       - resttest.storage
+
+  resttest.webclient:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44388
+    ports:
+      - "50074:80"
+      - "44388:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
     
   resttest.db:
     container_name: resttest.db

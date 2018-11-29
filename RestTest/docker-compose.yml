@@ -7,3 +7,10 @@ services:
     build:
       context: .
       dockerfile: WebApi/Dockerfile
+
+  resttest.webclient:
+    image: ${DOCKER_REGISTRY-}resttest-webclient
+    build:
+      context: .
+      dockerfile: WebClient/Dockerfile
+
